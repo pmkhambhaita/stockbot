@@ -1,50 +1,31 @@
-graph = {
-    'A': ['B', 'C'],
-    'B': ['A', 'D', 'E'],
-    'C': ['A', 'F', 'G'],
-    'D': ['B', 'H', 'I'],
-    'E': ['B', 'J', 'K'],
-    'F': ['C', 'L', 'M'],
-    'G': ['C', 'N', 'O'],
-    'H': ['D', 'P'],
-    'I': ['D', 'Q'],
-    'J': ['E', 'R'],
-    'K': ['E', 'S'],
-    'L': ['F', 'T'],
-    'M': ['F', 'U'],
-    'N': ['G', 'V'],
-    'O': ['G', 'W'],
-    'P': ['H'],
-    'Q': ['I'],
-    'R': ['J'],
-    'S': ['K'],
-    'T': ['L'],
-    'U': ['M'],
-    'V': ['N'],
-    'W': ['O']
-}
+# Initialize a 10x10 2D array
+rows, cols = 10, 10
+graph = [[0 for _ in range(cols)] for _ in range(rows)]
 
-def bfs(graph_in, start, end):
+# Define the BFS function
+def bfs(graph, start, end):
     queue = [[start]]
     visited = set()
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
 
     while queue:
         path = queue.pop(0)
-        node = path[-1]
+        x, y = path[-1]
 
-        if node == end:
+        if (x, y) == end:
             return path
 
-        if node not in visited:
-            visited.add(node)
-            for neighbor in graph_in[node]:
-                if neighbor not in visited:
+        if (x, y) not in visited:
+            visited.add((x, y))
+            for dx, dy in directions:
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < rows and 0 <= ny < cols and (nx, ny) not in visited:
                     new_path = list(path)
-                    new_path.append(neighbor)
+                    new_path.append((nx, ny))
                     queue.append(new_path)
 
     return None
 
-start_node = 'A'
-end_node = 'W'
+start_node = (0, 0)
+end_node = (9, 9)
 print(bfs(graph, start_node, end_node))
