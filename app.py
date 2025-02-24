@@ -1,4 +1,7 @@
+# --- Refactoring in progress --- #
+
 # Initialize a 10x10 2D array
+
 rows, cols = 10, 10
 graph = [[0 for _ in range(cols)] for _ in range(rows)]
 
@@ -27,5 +30,5 @@ def bfs(graph_in, start, end):
     return None
 
 start_node = (0, 0)
-end_node = (5, 9)
+end_node = (4, 8)
 print(bfs(graph, start_node, end_node))
