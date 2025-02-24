@@ -27,5 +27,5 @@ def bfs(graph_in, start, end):
     return None
 
 start_node = (0, 0)
-end_node = (9, 9)
+end_node = (5, 9)
 print(bfs(graph, start_node, end_node))
