@@ -3,7 +3,7 @@ rows, cols = 10, 10
 graph = [[0 for _ in range(cols)] for _ in range(rows)]
 
 # Define the BFS function
-def bfs(graph, start, end):
+def bfs(graph_in, start, end):
     queue = [[start]]
     visited = set()
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
@@ -19,10 +19,10 @@ def bfs(graph, start, end):
             visited.add((x, y))
             for dx, dy in directions:
                 nx, ny = x + dx, y + dy
-                if 0 <= nx < rows and 0 <= ny < cols and (nx, ny) not in visited:
-                    new_path = list(path)
-                    new_path.append((nx, ny))
-                    queue.append(new_path)
+                if 0 <= nx < rows and 0 <= ny < cols:
+                    if (nx, ny) not in visited and graph_in[nx][ny] == 0:
+                        new_path = list(path) + [(nx, ny)]
+                        queue.append(new_path)
 
     return None
 
