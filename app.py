@@ -1,34 +1,37 @@
-# --- Refactoring in progress --- #
-
 # Initialize a 10x10 2D array
 
 rows, cols = 10, 10
 graph = [[0 for _ in range(cols)] for _ in range(rows)]
 
-# Define the BFS function
+# Define the BFS pathfinding algorithm
 def bfs(graph_in, start, end):
-    queue = [[start]]
-    visited = set()
+    queue = [[start]] # Start with the start node
+    visited = set() # Keep track of visited nodes
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
 
     while queue:
-        path = queue.pop(0)
-        x, y = path[-1]
+        path = queue.pop(0) # Get the first path in the queue
+        x, y = path[-1] # Get the last node in the path
 
         if (x, y) == end:
-            return path
+            return path # Return the path if we reach the end
 
-        if (x, y) not in visited:
-            visited.add((x, y))
-            for dx, dy in directions:
-                nx, ny = x + dx, y + dy
-                if 0 <= nx < rows and 0 <= ny < cols:
-                    if (nx, ny) not in visited and graph_in[nx][ny] == 0:
-                        new_path = list(path) + [(nx, ny)]
-                        queue.append(new_path)
+        if (x, y) not in visited: # If the node has not been visited
+            visited.add((x, y))  # Mark the node as visited
+            for dx, dy in directions:  # Check all possible directions
+                nx, ny = x + dx, y + dy  # Calculate the new node
+                if 0 <= nx < rows and 0 <= ny < cols:  # Check if the new node is within the bounds
+                    if (nx, ny) not in visited and graph_in[nx][ny] == 0:  # Check if the new node is not visited and is not an obstacle
+                        new_path = list(path) + [(nx, ny)]  # Add the new node to the path
+                        queue.append(new_path) # Add the new path to the queue
 
-    return None
+    return None  # Return None if no path is found
 
+
+# Define the start and end nodes
 start_node = (0, 0)
 end_node = (4, 8)
+
+# Run the BFS algorithm
+
 print(bfs(graph, start_node, end_node))
